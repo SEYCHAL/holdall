@@ -13,22 +13,33 @@
     <Button
         android:id="@+id/test_1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Show Toast" />
+        android:layout_height="0dp"
+        android:text="Show Toast"
+        android:layout_weight="1"/>
+
     <Button
         android:id="@+id/test_2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test 2" />
+        android:layout_height="0dp"
+        android:text="Test 2"
+        android:layout_weight="1"/>
     <Button
         android:id="@+id/test_3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test 3" />
+        android:layout_height="0dp"
+        android:text="Test 3"
+        android:layout_weight="1"/>
     <Button
         android:id="@+id/test_4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Test 4" />
+        android:layout_height="0dp"
+        android:text="Test 4"
+        android:layout_weight="1"/>
+    <Button
+        android:id="@+id/test_5"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:text="Test 5"
+        android:layout_weight="1"/>
 
 </LinearLayout>
