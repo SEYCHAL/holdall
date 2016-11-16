@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Holdall</string>
+    <string name="title_activity_fab">FabActivity</string>
 </resources>

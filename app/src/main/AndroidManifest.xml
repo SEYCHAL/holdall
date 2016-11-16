@@ -18,7 +18,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".PicassoActivity" />
-        <activity android:name=".PalindromeActivity"></activity>
+        <activity android:name=".PalindromeActivity" />
+        <activity
+            android:name=".FabActivity"
+            android:label="@string/title_activity_fab"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
