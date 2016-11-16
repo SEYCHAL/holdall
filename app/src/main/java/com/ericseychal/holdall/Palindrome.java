@@ -5,19 +5,6 @@ package com.ericseychal.holdall;
  */
 
 public class Palindrome {
-    private String word;
-
-    public Palindrome(String word) {
-        this.word = word;
-    }
-
-    public String getWord() {
-        return word;
-    }
-
-    public void setWord(String word) {
-        this.word = word;
-    }
 
     public boolean palindrome (String word) {
         StringBuffer variable = new StringBuffer(word);
@@ -33,5 +20,14 @@ public class Palindrome {
             }
         }
         return variableReturn;
+    }
+
+    public String toward (String word) {
+        StringBuffer variable2 = new StringBuffer(word);
+        StringBuffer variable = new StringBuffer();
+        for (int indice = variable2.length(); indice >= 1; indice--) {
+            variable.append(variable2.substring(indice - 1, indice));
+        }
+        return variable.toString();
     }
 }
