@@ -1,10 +1,12 @@
 package com.ericseychal.holdall;
 
 import android.content.Intent;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -31,9 +33,21 @@ public class ListPictureActivity extends AppCompatActivity {
         listPicture.add(new Pictures("maison sous la neige",url));
 
         AdapterListPicture adapterListPicture = new AdapterListPicture(this);
+        final EditText editText = (EditText) findViewById(R.id.list_picture_edittext);
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.list_picture_fab);
+        fab.setFocusable(false);
+        fab.setFocusableInTouchMode(false);
+
         ListView listView = (ListView) findViewById(R.id.list_picture);
         listView.setAdapter(adapterListPicture);
         adapterListPicture.setPicturesList(listPicture);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ListPictureActivity.this,editText.getText().toString(),Toast.LENGTH_SHORT).show();
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
