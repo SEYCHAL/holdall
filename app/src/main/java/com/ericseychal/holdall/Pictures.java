@@ -32,4 +32,31 @@ public class Pictures implements Serializable{
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "Pictures{" +
+                "name='" + name + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Pictures)) return false;
+
+        Pictures pictures = (Pictures) o;
+
+        if (name != null ? !name.equals(pictures.name) : pictures.name != null) return false;
+        return url != null ? url.equals(pictures.url) : pictures.url == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = name != null ? name.hashCode() : 0;
+        result = 31 * result + (url != null ? url.hashCode() : 0);
+        return result;
+    }
 }
