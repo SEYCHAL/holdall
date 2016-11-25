@@ -47,7 +47,7 @@
         android:id="@+id/test_5"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:text="Test 5"
+        android:text="FIBONNACI"
         android:layout_weight="1"
         android:background="@android:color/holo_green_dark"/>
 </LinearLayout>
@@ -62,20 +62,20 @@
             android:id="@+id/test_6"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="Test 6"
+            android:text="ListView"
             android:layout_weight="1"/>
 
         <Button
             android:id="@+id/test_7"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="Test 7"
+            android:text="Liste Photos"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/test_8"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:text="Test 8"
+            android:text="Fragment Test"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/test_9"

@@ -19,10 +19,11 @@
         </activity>
         <activity android:name=".PicassoActivity" />
         <activity android:name=".PalindromeActivity" />
-        <activity
-            android:name=".FabActivity"
-            android:label="@string/title_activity_fab"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".FibonnaciActivity" />
+        <activity android:name=".ListViewActivity" />
+        <activity android:name=".ListPictureActivity" />
+        <activity android:name=".ShowOnePictureActivity" />
+        <activity android:name=".TestFragmentActivity"></activity>
     </application>
 
 </manifest>

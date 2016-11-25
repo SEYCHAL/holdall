@@ -40,6 +40,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        Button button5 = (Button) findViewById(R.id.test_5);
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, FibonnaciActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button6 = (Button) findViewById(R.id.test_6);
+        button6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ListViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button7 = (Button) findViewById(R.id.test_7);
+        button7.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, ListPictureActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button button8 = (Button) findViewById(R.id.test_8);
+        button8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, TestFragmentActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
