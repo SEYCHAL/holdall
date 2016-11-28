@@ -4,6 +4,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.net.Uri;
 import android.os.IBinder;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +16,19 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.ericseychal.holdall.R;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.appindexing.Thing;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListPictureActivity extends AppCompatActivity {
+public class ListPictureActivity extends AppCompatActivity implements FlickrResponseListener {
     private FlickrService flickrService;
     boolean bound = false;
     List<Pictures> listPicture = new ArrayList<>();
+    private AdapterListPicture adapterListPicture;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +36,7 @@ public class ListPictureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_picture);
 
 
-
-        final AdapterListPicture adapterListPicture = new AdapterListPicture(this);
+        adapterListPicture = new AdapterListPicture(this);
         final EditText editText = (EditText) findViewById(R.id.list_picture_edittext);
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.list_picture_fab);
         fab.setFocusable(false);
@@ -44,9 +49,13 @@ public class ListPictureActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ListPictureActivity.this,editText.getText().toString(),Toast.LENGTH_SHORT).show();
-                listPicture = flickrService.getListPicture();
-                adapterListPicture.setPicturesList(listPicture);
+                Toast.makeText(ListPictureActivity.this, editText.getText().toString(), Toast.LENGTH_SHORT).show();
+                String query = editText.getText().toString();
+
+                if (bound && !query.equals("")) {
+                    flickrService.getListPicture(editText.getText().toString());
+                    adapterListPicture.setPicturesList(listPicture);
+                }
             }
         });
 
@@ -62,13 +71,14 @@ public class ListPictureActivity extends AppCompatActivity {
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
         Intent intent = new Intent(this, FlickrService.class);
         bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+
     }
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -80,15 +90,21 @@ public class ListPictureActivity extends AppCompatActivity {
 
     private ServiceConnection mConnection = new ServiceConnection() {
         @Override
-        public void onServiceConnected(ComponentName className,
-                                       IBinder service) {
+        public void onServiceConnected(ComponentName className, IBinder service) {
             FlickrService.ServiceBinder binder = (FlickrService.ServiceBinder) service;
             flickrService = binder.getService();
+            flickrService.setFlickrResponseListener(ListPictureActivity.this);
             bound = true;
         }
+
         @Override
         public void onServiceDisconnected(ComponentName arg0) {
             bound = false;
         }
     };
+
+    @Override
+    public void onPicturesReceived(List<Pictures> picturesList) {
+        adapterListPicture.setPicturesList(picturesList);
+    }
 }

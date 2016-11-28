@@ -2,6 +2,9 @@
 *.apk
 *.ap_
 
+# Key flick
+flickr_api_key.xml
+
 # Files for the ART/Dalvik VM
 *.dex
 

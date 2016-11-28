@@ -1,9 +1,9 @@
 package com.ericseychal.holdall;
 
+import com.ericseychal.holdall.flickrdto.ConvertFlickrDto;
 import com.ericseychal.holdall.flickrdto.FlickrPhotosDto;
 import com.ericseychal.holdall.flickrdto.FlickrResponseDto;
 import com.ericseychal.holdall.flickrdto.PhotoDto;
-import com.ericseychal.holdall.flickrdto.convertFlickrDto;
 import com.ericseychal.holdall.listpicture.Pictures;
 
 import org.junit.Test;
@@ -32,8 +32,8 @@ public class FlickrUnitTest {
         listPictures.add( new Pictures("4339316232","https://farm6.static.flickr.com/5634/30861297610_299d2972ed.jpg"));
         listPictures.add( new Pictures("3488367654","https://farm6.static.flickr.com/5833/30407771724_d82cfff779.jpg"));
 
-//        convertFlickrDto convertFlickrDto = new convertFlickrDto();
-        List<Pictures> result = convertFlickrDto.convert(flickrResponseDto);
+//        ConvertFlickrDto ConvertFlickrDto = new ConvertFlickrDto();
+        List<Pictures> result = ConvertFlickrDto.convert(flickrResponseDto);
 
         assertEquals(result, listPictures);
     }

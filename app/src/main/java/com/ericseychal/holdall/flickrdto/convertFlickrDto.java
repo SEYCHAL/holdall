@@ -9,7 +9,7 @@ import java.util.List;
  * Created by ericseychal on 25/11/2016.
  */
 
-public class convertFlickrDto {
+public class ConvertFlickrDto {
 
     public static List<Pictures> convert(FlickrResponseDto flickrResponseDto) {
         FlickrPhotosDto flickrPhotosDto = flickrResponseDto.getPhotos();
@@ -17,12 +17,12 @@ public class convertFlickrDto {
         List <Pictures> convert = new ArrayList<>();
         photoDto = flickrPhotosDto.getPhoto();
         for (PhotoDto photo : photoDto) {
-            convert.add( new Pictures(photo.getTitle(),treatment(photo)));
+            convert.add( new Pictures(photo.getTitle(),treatmentUrl(photo)));
         }
         return convert;
     }
 
-    private static String treatment(PhotoDto photoDto) {
+    private static String treatmentUrl(PhotoDto photoDto) {
         String variableReturn ="https://farm";
         variableReturn += photoDto.getFarm();
         variableReturn += ".static.flickr.com/";
