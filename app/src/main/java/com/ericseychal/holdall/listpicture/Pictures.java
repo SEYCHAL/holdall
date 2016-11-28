@@ -1,6 +1,4 @@
-package com.ericseychal.holdall;
-
-import com.squareup.picasso.Picasso;
+package com.ericseychal.holdall.listpicture;
 
 import java.io.Serializable;
 

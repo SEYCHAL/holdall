@@ -1,9 +1,10 @@
-package com.ericseychal.holdall;
+package com.ericseychal.holdall.listview;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.ericseychal.holdall.R;
 
 import java.util.ArrayList;
 import java.util.List;

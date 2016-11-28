@@ -1,4 +1,4 @@
-package com.ericseychal.holdall;
+package com.ericseychal.holdall.testfragment;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
+import com.ericseychal.holdall.R;
 
 /**
  * Created by ericseychal on 24/11/2016.

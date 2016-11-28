@@ -7,6 +7,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.ericseychal.holdall.fibonnaci.FibonnaciActivity;
+import com.ericseychal.holdall.listpicture.ListPictureActivity;
+import com.ericseychal.holdall.listview.ListViewActivity;
+import com.ericseychal.holdall.palindrome.PalindromeActivity;
+import com.ericseychal.holdall.picasso.PicassoActivity;
+import com.ericseychal.holdall.testfragment.TestFragmentActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override

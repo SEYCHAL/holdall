@@ -1,4 +1,4 @@
-package com.ericseychal.holdall;
+package com.ericseychal.holdall.palindrome;
 
 /**
  * Created by ericseychal on 16/11/2016.

@@ -1,9 +1,10 @@
-package com.ericseychal.holdall;
+package com.ericseychal.holdall.picasso;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ImageView;
 
+import com.ericseychal.holdall.R;
 import com.squareup.picasso.Picasso;
 
 public class PicassoActivity extends AppCompatActivity {

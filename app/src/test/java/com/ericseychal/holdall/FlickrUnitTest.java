@@ -4,8 +4,8 @@ import com.ericseychal.holdall.flickrdto.FlickrPhotosDto;
 import com.ericseychal.holdall.flickrdto.FlickrResponseDto;
 import com.ericseychal.holdall.flickrdto.PhotoDto;
 import com.ericseychal.holdall.flickrdto.convertFlickrDto;
+import com.ericseychal.holdall.listpicture.Pictures;
 
-import org.junit.Before;
 import org.junit.Test;
 
 import java.util.ArrayList;

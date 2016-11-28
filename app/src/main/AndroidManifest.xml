@@ -17,13 +17,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PicassoActivity" />
-        <activity android:name=".PalindromeActivity" />
-        <activity android:name=".FibonnaciActivity" />
-        <activity android:name=".ListViewActivity" />
-        <activity android:name=".ListPictureActivity" />
-        <activity android:name=".ShowOnePictureActivity" />
-        <activity android:name=".TestFragmentActivity"></activity>
+        <activity android:name=".picasso.PicassoActivity" />
+        <activity android:name=".palindrome.PalindromeActivity" />
+        <activity android:name=".fibonnaci.FibonnaciActivity" />
+        <activity android:name=".listview.ListViewActivity" />
+        <activity android:name=".listpicture.ListPictureActivity" />
+        <activity android:name=".listpicture.ShowOnePictureActivity" />
+        <activity android:name=".testfragment.TestFragmentActivity" />
+
+        <service
+            android:name=".listpicture.FlickrService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

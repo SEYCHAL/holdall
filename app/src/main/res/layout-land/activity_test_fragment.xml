@@ -3,13 +3,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <fragment android:name="com.ericseychal.holdall.TestFragment"
+    <fragment android:name="com.ericseychal.holdall.testfragment.TestFragment"
         android:id="@+id/test_fragment"
         android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent" />
 
-    <fragment android:name="com.ericseychal.holdall.TestFragment2"
+    <fragment android:name="com.ericseychal.holdall.testfragment.TestFragment2"
         android:id="@+id/test_fragment2"
         android:layout_weight="2"
         android:layout_width="0dp"

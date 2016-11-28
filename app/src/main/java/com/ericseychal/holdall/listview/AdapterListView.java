@@ -1,4 +1,4 @@
-package com.ericseychal.holdall;
+package com.ericseychal.holdall.listview;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
 import android.widget.TextView;
+
+import com.ericseychal.holdall.R;
 
 import java.util.ArrayList;
 import java.util.List;

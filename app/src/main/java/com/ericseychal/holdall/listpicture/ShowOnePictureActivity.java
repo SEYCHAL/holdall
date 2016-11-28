@@ -1,4 +1,4 @@
-package com.ericseychal.holdall;
+package com.ericseychal.holdall.listpicture;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ericseychal.holdall.R;
 import com.squareup.picasso.Picasso;
 
 public class ShowOnePictureActivity extends AppCompatActivity {

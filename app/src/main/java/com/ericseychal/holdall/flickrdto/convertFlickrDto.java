@@ -1,6 +1,6 @@
 package com.ericseychal.holdall.flickrdto;
 
-import com.ericseychal.holdall.Pictures;
+import com.ericseychal.holdall.listpicture.Pictures;
 
 import java.util.ArrayList;
 import java.util.List;

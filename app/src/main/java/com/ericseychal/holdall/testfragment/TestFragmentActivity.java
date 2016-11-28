@@ -1,14 +1,12 @@
-package com.ericseychal.holdall;
+package com.ericseychal.holdall.testfragment;
 
 
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.ericseychal.holdall.R;
 
 public class TestFragmentActivity extends FragmentActivity {
     private TestFragment testFragment;
