@@ -54,17 +54,14 @@ public class FlickrService extends Service {
         }
     }
 
-    public void getListPicture(String query) {
+    public void getListPicture(String query, String nber) {
 
 
-        Call<FlickrResponseDto> flickrPhotosResponseCall = service.getPhotos(query, getFlickrKey());
+        Call<FlickrResponseDto> flickrPhotosResponseCall = service.getPhotos(query, getFlickrKey(),nber);
 
         flickrPhotosResponseCall.enqueue(new Callback<FlickrResponseDto>() {
             @Override
             public void onResponse(Call<FlickrResponseDto> call, Response<FlickrResponseDto> response) {
-                Log.e("url", call.request().url().toString());
-                Log.e("onResponse", response.body().toString());
-
                 List<Pictures> listPicture = ConvertFlickrDto.convert(response.body());
                 flickrResponseListener.onPicturesReceived(listPicture);
             }
