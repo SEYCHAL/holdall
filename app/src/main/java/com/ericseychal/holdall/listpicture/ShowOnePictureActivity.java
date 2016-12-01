@@ -26,6 +26,7 @@ public class ShowOnePictureActivity extends AppCompatActivity {
         url.setText(picture.getUrl());
         Picasso.with(this).load(picture.getUrl()).into(imageView);
 
+/*
         Button deleteButton = (Button) findViewById(R.id.one_picture_delete);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -33,5 +34,6 @@ public class ShowOnePictureActivity extends AppCompatActivity {
 
             }
         });
+*/
     }
 }

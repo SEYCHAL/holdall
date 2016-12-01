@@ -25,6 +25,9 @@ import android.widget.Spinner;
 import com.ericseychal.holdall.R;
 import com.ericseychal.holdall.dbflow.PicturesManager;
 
+import org.honorato.multistatetogglebutton.MultiStateToggleButton;
+import org.honorato.multistatetogglebutton.ToggleButton;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,8 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
     public static final String SPINNER_POSITION = "spinner_position";
     public static final String IS_SEARCH_BUTTON = "is_search_button";
     public static final String PICTURE = "picture";
+    public static final String MSTB_BUTTON1 = "Find";
+    public static final String MSTB_BUTTON2 = "Historic";
 
     private FlickrService flickrService;
     boolean bound = false;
@@ -60,9 +65,9 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
         initLinearLayoutSearch();
         initListView();
         initDrawer();
+        intitMultiStateToggleButton();
         initSpinner();
         visibleButtonSearch(isSearchButton);
-
     }
 
     // ============================== Bound Management ====================================
@@ -158,28 +163,37 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+    }
 
-        Button searchButton = (Button) findViewById(R.id.drawer_find);
-        Button historicButton = (Button) findViewById(R.id.drawer_historic);
+        // ============================== MultiStateToggleButton ====================================
+    private void intitMultiStateToggleButton() {
+        MultiStateToggleButton mstbButton = (MultiStateToggleButton) findViewById(R.id.mstb_button);
+        List<String> titleButton = new ArrayList<>();
+        titleButton.add(MSTB_BUTTON1);
+        titleButton.add(MSTB_BUTTON2);
+        boolean[] value = new boolean[titleButton.size()];
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        if (isSearchButton) {
+            value[0] = true;
+        } else {
+            value[1] =true;
+        }
+        mstbButton.setElements(titleButton,value);
+        mstbButton.setOnValueChangedListener(new ToggleButton.OnValueChangedListener() {
             @Override
-            public void onClick(View v) {
-                visibleButtonSearch(true);
-                saveSharePreference();
-                drawerLayout.closeDrawers();
-                adapterListPicture.setHistoric(false);
-                adapterListPicture.setPicturesList(new ArrayList<Pictures>());
-            }
-        });
-
-        historicButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                visibleButtonSearch(false);
-                saveSharePreference();
-                showHistoric();
-                drawerLayout.closeDrawers();
+            public void onValueChanged(int position) {
+                if (position == 0) {                // Find button
+                    visibleButtonSearch(true);
+                    saveSharePreference();
+                    drawerLayout.closeDrawers();
+                    adapterListPicture.setHistoric(false);
+                    adapterListPicture.setPicturesList(new ArrayList<Pictures>());
+                } else if(position == 1) {          // Historic button
+                    visibleButtonSearch(false);
+                    saveSharePreference();
+                    showHistoric();
+                    drawerLayout.closeDrawers();
+                }
             }
         });
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/drawer"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -47,6 +48,7 @@
         android:background="@android:color/darker_gray"
         android:orientation="vertical">
 
+<!--
         <Button
             android:id="@+id/drawer_find"
             android:layout_width="match_parent"
@@ -58,6 +60,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="History" />
+-->
+
+        <org.honorato.multistatetogglebutton.MultiStateToggleButton
+            android:id="@+id/mstb_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:mstbPrimaryColor="@color/colorPrimaryDark"
+            app:mstbSecondaryColor="@color/common_action_bar_splitter"/>
 
         <TextView
             android:layout_width="match_parent"
