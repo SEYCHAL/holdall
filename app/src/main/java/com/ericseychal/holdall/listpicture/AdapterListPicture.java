@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ericseychal.holdall.R;
+import com.ericseychal.holdall.dbflow.PicturesManager;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -23,7 +24,8 @@ import butterknife.BindView;
 
 public class AdapterListPicture extends BaseAdapter {
     private Context context;
-    List<Pictures> picturesList = new ArrayList<>();
+    private List<Pictures> picturesList = new ArrayList<>();
+    private boolean isHistoric = false;
 
     public AdapterListPicture(Context context) {
         this.context = context;
@@ -49,7 +51,19 @@ public class AdapterListPicture extends BaseAdapter {
         return position;
     }
 
+    public boolean isHistoric() {
+        return isHistoric;
+    }
+
+    public void setHistoric(boolean historic) {
+        isHistoric = historic;
+    }
+
     private void pictureDel(int position) {
+        if (isHistoric) {
+            PicturesManager picturesManager = new PicturesManager(context);
+            picturesManager.delete(picturesList.get(position));
+        }
         picturesList.remove(position);
         setPicturesList(picturesList);
     }

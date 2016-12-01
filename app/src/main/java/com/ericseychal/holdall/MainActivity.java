@@ -7,18 +7,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.crashlytics.android.Crashlytics;
 import com.ericseychal.holdall.fibonnaci.FibonnaciActivity;
 import com.ericseychal.holdall.listpicture.ListPictureActivity;
 import com.ericseychal.holdall.listview.ListViewActivity;
 import com.ericseychal.holdall.palindrome.PalindromeActivity;
 import com.ericseychal.holdall.picasso.PicassoActivity;
 import com.ericseychal.holdall.testfragment.TestFragmentActivity;
+import io.fabric.sdk.android.Fabric;
 
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_main);
 
         Button button1 = (Button) findViewById(R.id.test_1);

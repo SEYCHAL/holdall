@@ -12,6 +12,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/linear_layout_search"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -53,7 +54,7 @@
             android:text="Find" />
 
         <Button
-            android:id="@+id/drawer_history"
+            android:id="@+id/drawer_historic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="History" />

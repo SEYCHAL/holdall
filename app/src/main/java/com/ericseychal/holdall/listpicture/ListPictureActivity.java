@@ -16,32 +16,38 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.ericseychal.holdall.R;
+import com.ericseychal.holdall.dbflow.PicturesManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListPictureActivity extends AppCompatActivity implements FlickrResponseListener, AdapterView.OnItemSelectedListener {
-    final String NUMBER_PHOTOS = "number_photos";
-    final String SPINNER_POSITION = "spinner_position";
+    public static final String NUMBER_PHOTOS = "number_photos";
+    public static final String SPINNER_POSITION = "spinner_position";
+    public static final String IS_SEARCH_BUTTON = "is_search_button";
+    public static final String PICTURE = "picture";
 
     private FlickrService flickrService;
     boolean bound = false;
-//    List<Pictures> listPicture = new ArrayList<>();
 
     private AdapterListPicture adapterListPicture;
-    private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle actionBarDrawerToggle;
     private SharedPreferences sharedPreferences;
+    private EditText editText;
+    private FloatingActionButton fab;
+    private LinearLayout linearLayoutSearch;
+    private DrawerLayout drawerLayout;
 
-    private Spinner spinner;
     private String numberPhotos = "5";
     private int spinnerSelectionPosition = 0;
+    private boolean isSearchButton = false;
 
 
     @Override
@@ -51,46 +57,15 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
         sharedPreferences = getPreferences(MODE_PRIVATE);
 
         initSharePreference();
+        initLinearLayoutSearch();
+        initListView();
         initDrawer();
         initSpinner();
+        visibleButtonSearch(isSearchButton);
 
-        adapterListPicture = new AdapterListPicture(this);
-        final EditText editText = (EditText) findViewById(R.id.list_picture_edittext);
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.list_picture_fab);
-        fab.setFocusable(false);
-        fab.setFocusableInTouchMode(false);
-
-        ListView listView = (ListView) findViewById(R.id.list_picture);
-        listView.setAdapter(adapterListPicture);
-//        adapterListPicture.setPicturesList(listPicture);
-
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(ListPictureActivity.this, editText.getText().toString(), Toast.LENGTH_SHORT).show();
-                String query = editText.getText().toString();
-
-                if (bound && !query.equals("")) {
-                    flickrService.getListPicture(editText.getText().toString(), numberPhotos);
-//                    adapterListPicture.setPicturesList(listPicture);
-                }
-            }
-        });
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Intent intent = new Intent(ListPictureActivity.this, ShowOnePictureActivity.class);
-                intent.putExtra("picture", adapterListPicture.getItem(position));
-//                intent.putExtra("picture", listPicture.get(position));
-                startActivity(intent);
-            }
-        });
     }
 
-
+    // ============================== Bound Management ====================================
     @Override
     protected void onStart() {
         super.onStart();
@@ -128,6 +103,47 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
         adapterListPicture.setPicturesList(picturesList);
     }
 
+    // ============================== Search Layout ====================================
+    private void initLinearLayoutSearch() {
+        editText = (EditText) findViewById(R.id.list_picture_edittext);
+        fab = (FloatingActionButton) findViewById(R.id.list_picture_fab);
+        fab.setFocusable(false);
+        fab.setFocusableInTouchMode(false);
+        linearLayoutSearch = (LinearLayout) findViewById(R.id.linear_layout_search);
+
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(ListPictureActivity.this, editText.getText().toString(), Toast.LENGTH_SHORT).show();
+                String query = editText.getText().toString();
+
+                if (bound && !query.equals("")) {
+                    flickrService.getListPicture(editText.getText().toString(), numberPhotos);
+                }
+            }
+        });
+    }
+
+    // ============================== ListView ====================================
+    private void initListView() {
+        adapterListPicture = new AdapterListPicture(this);
+        final PicturesManager picturesManager = new PicturesManager(this);
+        ListView listView = (ListView) findViewById(R.id.list_picture);
+        listView.setAdapter(adapterListPicture);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                savePictureToHistoric(adapterListPicture.getItem(position));
+                Intent intent = new Intent(ListPictureActivity.this, ShowOnePictureActivity.class);
+                intent.putExtra(PICTURE, adapterListPicture.getItem(position));
+                startActivity(intent);
+            }
+        });
+
+    }
+
+    // ============================== Drawer ====================================
     private void initDrawer() {
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
@@ -142,6 +158,30 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
+
+        Button searchButton = (Button) findViewById(R.id.drawer_find);
+        Button historicButton = (Button) findViewById(R.id.drawer_historic);
+
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                visibleButtonSearch(true);
+                saveSharePreference();
+                drawerLayout.closeDrawers();
+                adapterListPicture.setHistoric(false);
+                adapterListPicture.setPicturesList(new ArrayList<Pictures>());
+            }
+        });
+
+        historicButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                visibleButtonSearch(false);
+                saveSharePreference();
+                showHistoric();
+                drawerLayout.closeDrawers();
+            }
+        });
     }
 
     // ======================== DrawerLayout ===============================
@@ -175,7 +215,7 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
 
     // ============================== Spinner ====================================
     private void initSpinner() {
-        spinner = (Spinner) findViewById(R.id.spinner);
+        Spinner spinner = (Spinner) findViewById(R.id.spinner);
         spinner.setOnItemSelectedListener(this);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.nbre_pictures_array, android.R.layout.simple_spinner_item);
@@ -190,18 +230,51 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
         numberPhotos = parent.getItemAtPosition(position).toString();
         spinnerSelectionPosition = parent.getSelectedItemPosition();
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString(NUMBER_PHOTOS, numberPhotos);
-        editor.putInt(SPINNER_POSITION, spinnerSelectionPosition);
-        editor.commit();
+        saveSharePreference();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
     }
 
+    // ============================== other methodes ====================================
     private void initSharePreference() {
         numberPhotos = sharedPreferences.getString(NUMBER_PHOTOS, "5");
         spinnerSelectionPosition = sharedPreferences.getInt(SPINNER_POSITION, 0);
+        isSearchButton = sharedPreferences.getBoolean(IS_SEARCH_BUTTON,true);
+    }
+
+    private void saveSharePreference() {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(NUMBER_PHOTOS, numberPhotos);
+        editor.putInt(SPINNER_POSITION, spinnerSelectionPosition);
+        editor.putBoolean(IS_SEARCH_BUTTON, isSearchButton);
+        editor.commit();
+    }
+
+    private void visibleButtonSearch(boolean value) {
+        if (value) {
+            linearLayoutSearch.setVisibility(View.VISIBLE);
+            adapterListPicture.setHistoric(false);
+        } else {
+            linearLayoutSearch.setVisibility(View.GONE);
+            adapterListPicture.setHistoric(true);
+            showHistoric();
+        }
+        isSearchButton = value;
+    }
+
+    private void showHistoric() {
+        PicturesManager picturesManager = new PicturesManager(this);
+        List<Pictures> picturesList = new ArrayList<>();
+        adapterListPicture.setPicturesList(picturesManager.getAll());
+    }
+
+    private void savePictureToHistoric(Pictures pictures) {
+        PicturesManager picturesManager = new PicturesManager(this);
+        Pictures pictures1 = picturesManager.getByUrl(pictures.getUrl());
+        if (pictures1 == null) {
+            picturesManager.save(pictures);
+        }
     }
 }

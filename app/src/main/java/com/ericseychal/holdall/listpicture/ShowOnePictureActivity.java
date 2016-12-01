@@ -16,7 +16,7 @@ public class ShowOnePictureActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_one_picture);
-        Pictures picture = (Pictures) getIntent().getSerializableExtra("picture");
+        Pictures picture = (Pictures) getIntent().getSerializableExtra(ListPictureActivity.PICTURE);
 
         TextView title = (TextView) findViewById(R.id.one_picture_title);
         TextView url = (TextView) findViewById(R.id.one_picture_url);

@@ -1,18 +1,44 @@
 package com.ericseychal.holdall.listpicture;
 
+import android.support.annotation.ColorInt;
+
+import com.ericseychal.holdall.dbflow.AppDatabase;
+import com.raizlabs.android.dbflow.annotation.Column;
+import com.raizlabs.android.dbflow.annotation.PrimaryKey;
+import com.raizlabs.android.dbflow.annotation.Table;
+import com.raizlabs.android.dbflow.structure.BaseModel;
+
 import java.io.Serializable;
 
 /**
  * Created by ericseychal on 22/11/2016.
  */
 
-public class Pictures implements Serializable{
+@Table(database = AppDatabase.class)
+public class Pictures extends BaseModel implements Serializable{
+    @Column
+    @PrimaryKey(autoincrement = true)
+    private  long id;
+
+    @Column
     private String name;
+    @Column
     private String url;
 
+    public Pictures(){
+
+    }
     public Pictures(String name, String url) {
         this.name = name;
         this.url = url;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
