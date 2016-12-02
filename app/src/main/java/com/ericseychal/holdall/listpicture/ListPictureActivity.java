@@ -31,7 +31,7 @@ import org.honorato.multistatetogglebutton.ToggleButton;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListPictureActivity extends AppCompatActivity implements FlickrResponseListener, AdapterView.OnItemSelectedListener {
+public class ListPictureActivity extends AppCompatActivity implements FlickrResponseListener, AdapterView.OnItemSelectedListener,OnRowDeletedListener {
     public static final String NUMBER_PHOTOS = "number_photos";
     public static final String SPINNER_POSITION = "spinner_position";
     public static final String IS_SEARCH_BUTTON = "is_search_button";
@@ -269,10 +269,11 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
     private void visibleButtonSearch(boolean value) {
         if (value) {
             linearLayoutSearch.setVisibility(View.VISIBLE);
-            adapterListPicture.setHistoric(false);
+            adapterListPicture.setOnRowDeletedListener(null);
+
         } else {
             linearLayoutSearch.setVisibility(View.GONE);
-            adapterListPicture.setHistoric(true);
+            adapterListPicture.setOnRowDeletedListener(this);
             showHistoric();
         }
         isSearchButton = value;
@@ -290,5 +291,11 @@ public class ListPictureActivity extends AppCompatActivity implements FlickrResp
         if (pictures1 == null) {
             picturesManager.save(pictures);
         }
+    }
+
+    @Override
+    public void onRowDeleted(Pictures pictures) {
+        PicturesManager picturesManager = new PicturesManager(this);
+        picturesManager.delete(pictures);
     }
 }

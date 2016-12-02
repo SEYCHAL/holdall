@@ -25,7 +25,12 @@ import butterknife.BindView;
 public class AdapterListPicture extends BaseAdapter {
     private Context context;
     private List<Pictures> picturesList = new ArrayList<>();
-    private boolean isHistoric = false;
+
+    private OnRowDeletedListener onRowDeletedListener;
+
+    public void setOnRowDeletedListener(OnRowDeletedListener onRowDeletedListener) {
+        this.onRowDeletedListener = onRowDeletedListener;
+    }
 
     public AdapterListPicture(Context context) {
         this.context = context;
@@ -51,19 +56,18 @@ public class AdapterListPicture extends BaseAdapter {
         return position;
     }
 
-    public boolean isHistoric() {
-        return isHistoric;
-    }
-
-    public void setHistoric(boolean historic) {
-        isHistoric = historic;
-    }
-
     private void pictureDel(int position) {
-        if (isHistoric) {
-            PicturesManager picturesManager = new PicturesManager(context);
-            picturesManager.delete(picturesList.get(position));
+//        if (isHistoric) {
+//            PicturesManager picturesManager = new PicturesManager(context);
+//            picturesManager.delete(picturesList.get(position));
+//        }
+
+
+//      Informe le listener de l'appel
+        if (onRowDeletedListener != null) {
+            onRowDeletedListener.onRowDeleted(picturesList.get(position));
         }
+
         picturesList.remove(position);
         setPicturesList(picturesList);
     }
